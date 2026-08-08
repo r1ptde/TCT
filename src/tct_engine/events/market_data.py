@@ -22,5 +22,15 @@ class TickRejected(Event):
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
+class BarOpened(Event):
+    candle: Candle
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
+class BarUpdated(Event):
+    candle: Candle
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
 class BarClosed(Event):
     candle: Candle
