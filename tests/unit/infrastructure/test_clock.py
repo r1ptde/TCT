@@ -34,7 +34,7 @@ def test_replay_clock_cannot_move_backwards() -> None:
 
 
 def test_fixed_clock_rejects_naive_datetime() -> None:
-    timestamp = datetime(2026, 8, 7, 8, 0)
+    timestamp = datetime(2026, 8, 7, 8, 0)  # noqa: DTZ001 - intentionally naive
 
     with pytest.raises(ValueError, match="timezone-aware"):
         FixedClock(timestamp)
