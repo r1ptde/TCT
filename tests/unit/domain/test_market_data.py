@@ -30,3 +30,5 @@ def test_timeframe_seconds() -> None:
     assert Timeframe.M1.seconds == 60
     assert Timeframe.M3.seconds == 180
     assert Timeframe.M15.seconds == 900
+    assert Timeframe.M30.seconds == 1800
+    assert Timeframe.M45.seconds == 2700

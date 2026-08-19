@@ -30,6 +30,8 @@ class Timeframe(Enum):
     M3 = 180
     M5 = 300
     M15 = 900
+    M30 = 1800
+    M45 = 2700
 
     @property
     def seconds(self) -> int:
