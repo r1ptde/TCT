@@ -182,32 +182,32 @@ class SupplyDemandZoneTracker:
         zone: SupplyDemandZone,
         candle: Candle,
     ) -> SupplyDemandZone:
-        if zone.side is SupplyDemandSide.DEMAND:
-            if candle.close < zone.lower_bound:
-                return replace(
-                    zone,
-                    status=SupplyDemandStatus.INVALIDATED,
-                    invalidated_by=candle,
-                )
+        if zone.side is SupplyDemandSide.DEMAND and candle.close < zone.lower_bound:
+            return replace(
+                zone,
+                status=SupplyDemandStatus.INVALIDATED,
+                invalidated_by=candle,
+            )
 
-        else:
-            if candle.close > zone.upper_bound:
-                return replace(
-                    zone,
-                    status=SupplyDemandStatus.INVALIDATED,
-                    invalidated_by=candle,
-                )
+        if zone.side is SupplyDemandSide.SUPPLY and candle.close > zone.upper_bound:
+            return replace(
+                zone,
+                status=SupplyDemandStatus.INVALIDATED,
+                invalidated_by=candle,
+            )
 
-        if zone.status is SupplyDemandStatus.ACTIVE:
-            if SupplyDemandZoneTracker._candle_touches_zone(
+        if (
+            zone.status is SupplyDemandStatus.ACTIVE
+            and SupplyDemandZoneTracker._candle_touches_zone(
                 candle=candle,
                 zone=zone,
-            ):
-                return replace(
-                    zone,
-                    status=SupplyDemandStatus.TOUCHED,
-                    touched_by=candle,
-                )
+            )
+        ):
+            return replace(
+                zone,
+                status=SupplyDemandStatus.TOUCHED,
+                touched_by=candle,
+            )
 
         return zone
 
